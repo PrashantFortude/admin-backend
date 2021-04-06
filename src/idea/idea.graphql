@@ -1,0 +1,17 @@
+type Idea {
+  id: ID
+  created: Date!
+  updated: Date!
+  userId : String;
+  columnId: String;
+  IsEnable: Boolean;
+}
+
+type Query {
+  ideas(): [Idea!]!
+}
+
+type Mutation {
+  updateIdea(id: ID!, userId: String, columnId: String,IsEnable:Boolean): Idea!
+  deleteIdea(id: ID!): Idea!
+}
