@@ -14,18 +14,15 @@ import {
   @Entity('idea')
   export class IdeaEntity {
     @PrimaryGeneratedColumn('uuid')
-    id: string;
+    id: String;
 
-    @CreateDateColumn()
-    created: Date;
+    @Column()
+    IsEnable: Boolean;
   
-    @UpdateDateColumn()
-    updated: Date;
+    @Column()
+    columnId: String;
   
     @Column()
      userId : String;
-     columnId: String;
-     IsEnable: Boolean;
-  
   }
   

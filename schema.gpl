@@ -4,28 +4,11 @@
 
 type IdeaDTO {
   id: ID!
-  name: String!
-  DOB: String!
-  email: String!
-  age: Float!
-}
-
-type Result {
-  success: Boolean!
+  userId: String!
+  columnId: String!
+  IsEnable: Boolean!
 }
 
 type Query {
-  pokemon: [IdeaDTO!]!
-}
-
-type Mutation {
-  updateItem(input: IdeaType!, id: String!): IdeaDTO!
-  deleteItem(id: String!): Result!
-}
-
-input IdeaType {
-  name: String!
-  DOB: String!
-  email: String!
-  age: Float!
+  admin: [IdeaDTO!]!
 }

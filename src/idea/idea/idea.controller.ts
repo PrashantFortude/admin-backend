@@ -29,7 +29,7 @@ import {
   
     @Get()
     async showAllIdeas() {
-      return await this.ideaService.showAll();
+      // return await this.ideaService.showAll();
     }
   
     @Post()
@@ -37,14 +37,14 @@ import {
       return this.ideaService.create(data);
     }
   
-    @Patch(':id')
-    async updateIdea(@Param('id') id: string, @Body() data: Partial<IdeaDTO>) {
-      return await {
-        statusCode: HttpStatus.OK,
-        message: 'User update successfully',
-        data: await this.ideaService.update(id, data),
-      };
-    }
+    // @Patch(':id')
+    // async updateIdea(@Param('id') id: string, @Body() data: Partial<IdeaDTO>) {
+    //   return await {
+    //     statusCode: HttpStatus.OK,
+    //     message: 'User update successfully',
+    //     data: await this.ideaService.update(id, data),
+    //   };
+    // }
   
   
   }

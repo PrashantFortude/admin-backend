@@ -3,7 +3,7 @@ import { ObjectType, Field, ID, InputType,Int } from "@nestjs/graphql";
 
 @InputType()
 export class IdeaType {
-    @Field() userId: string
-    @Field() columnId: string;
+    @Field() userId: String
+    @Field() columnId: String;
     @Field() IsEnable: Boolean;
 }

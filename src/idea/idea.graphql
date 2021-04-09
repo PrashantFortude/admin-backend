@@ -1,17 +1,24 @@
 type Idea {
   id: ID
-  created: Date!
-  updated: Date!
-  userId : String;
-  columnId: String;
-  IsEnable: Boolean;
+  userId : String
+  columnId: String
+  IsEnable: Boolean
+}
+
+input Admin {
+  userId: String
+  columnId : String
+  IsEnable : Boolean
 }
 
 type Query {
-  ideas(): [Idea!]!
+  admin (userId:String) : String
 }
 
 type Mutation {
-  updateIdea(id: ID!, userId: String, columnId: String,IsEnable:Boolean): Idea!
+
+  updateItem(userId:String! ,input : Admin): Idea!
+  createItem(userId:String! , input : Admin): Idea!
+
   deleteIdea(id: ID!): Idea!
 }
