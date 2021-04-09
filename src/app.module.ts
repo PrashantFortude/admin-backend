@@ -6,10 +6,14 @@ import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { IdeaModule } from './idea/idea.module';
+import { join } from 'path';
 
 @Module({
   imports: [ TypeOrmModule.forRoot(),
-    GraphQLModule.forRoot({autoSchemaFile: 'schema.gpl'})
+    GraphQLModule.forRoot({ typePaths: ['./**/*.graphql'],
+    definitions: {
+      path: join(process.cwd(), 'src/graphql.ts'),
+    },})
    ,IdeaModule],
   controllers: [AppController],
   providers: [AppService],

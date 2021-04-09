@@ -1,10 +1,10 @@
 import { ObjectType, Field, ID, InputType } from "@nestjs/graphql";
 
-@ObjectType()
+@InputType()
 export class IdeaDTO {
     @Field(() => ID) readonly id?: string;
-    @Field() userId: string
-    @Field() columnId: string;
+    @Field() userId: String
+    @Field() columnId: String;
     @Field() IsEnable: Boolean;
 }
 
@@ -12,3 +12,4 @@ export class IdeaDTO {
 export class Result {
     @Field() success:Boolean
 }
+
