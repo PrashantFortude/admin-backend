@@ -1,6 +1,7 @@
 # compiled output
 /dist
 /node_modules
+/src/excel-data/~$**.xlsx
 
 # Logs
 logs

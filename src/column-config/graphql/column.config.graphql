@@ -1,0 +1,24 @@
+input ColumnConfigInput{
+    columnId: Int!
+    isEnable: Boolean
+}
+
+type ColumnConfig { 
+    userId: String!
+    columnId: Int!
+    isEnable: Boolean
+}
+
+type ColumnConfigResult{
+    success:Boolean!
+    data: [ColumnConfig!]
+    error:String!
+}
+
+type Query {
+    columnConfigs(userId : String) : ColumnConfigResult
+} 
+
+type Mutation{
+    createOrUpdateMultiple(userId:String!,input : [ColumnConfigInput!]) : ColumnConfigResult!
+}
