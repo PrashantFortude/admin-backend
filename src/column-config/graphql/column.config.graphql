@@ -1,6 +1,6 @@
 input ColumnConfigInput{
-    columnId: Int!
-    isEnable: Boolean
+    columnid: Int!
+    isenable: Boolean
 }
 
 type ColumnConfig { 
@@ -11,8 +11,12 @@ type ColumnConfig {
 
 type ColumnConfigResult{
     success:Boolean
-    data: [ColumnConfig!]
+    data: [ColumnConfig]
     error:String
+}
+
+type mutationsucess{
+    success : Boolean
 }
 
 type Query {
@@ -20,5 +24,5 @@ type Query {
 } 
 
 type Mutation{
-    createOrUpdateMultiple(userId:String!,input : [ColumnConfigInput!]) : ColumnConfigResult!
+    createOrUpdateMultiple(userId:String!,input : [ColumnConfigInput!]) : mutationsucess
 }

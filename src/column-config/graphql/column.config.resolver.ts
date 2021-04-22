@@ -14,7 +14,7 @@ export class ColumnConfigResolver {
     }
 
     @Mutation()
-    async createOrUpdateMultiple(@Args('userId') userId: string, @Args('input') input: [ColumnConfigInput]) {
+    async createOrUpdateMultiple(@Args('userId') userId: string, @Args('input') input: [ColumnConfigInput]):Promise<any> {
         return await this.columnConfigService.createOrUpdateMany(userId, input)
     }
 }
