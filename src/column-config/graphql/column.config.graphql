@@ -10,9 +10,9 @@ type ColumnConfig {
 }
 
 type ColumnConfigResult{
-    success:Boolean!
+    success:Boolean
     data: [ColumnConfig!]
-    error:String!
+    error:String
 }
 
 type Query {

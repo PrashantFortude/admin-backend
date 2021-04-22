@@ -8,38 +8,43 @@ import { ColumnConfigDTO, ColumnConfigInput } from './column.config.dto';
 const axios = require('axios');
 @Injectable()
 export class ColumnConfigService {
-    constructor(@InjectRepository(ColumnConfigEntity) public columnConfigRepository: Repository<ColumnConfigEntity>) { }
+    constructor() { }
 
     async showAll(userId: string): Promise<any> {
-
-        axios.post( "http://localhost:5000/graphql",{
-            query: `{
-                allIdeas{
-                  nodes{
-                    isEnable
-                    id
-                  }
-                }
-              }`
-        }).then(res=>{
-            console.log(res)
-        })
-
-        const responseObj = {
+        var responseObj = {
             success: false,
             error: null,
             data: []
         }
+        var datas;
+
         try {
-            const resultSet = await this.columnConfigRepository.find({ userId: userId });
-            if (!resultSet) {
+            axios.post("http://localhost:5000/graphql", {
+                query: `{
+                allIdeas{
+                  nodes{
+                    isEnable
+                    userId
+                    columnId
+                  }
+                }
+              }`
+            }).then(res => {
+                console.log(res)
+            })
+            if (!datas) {
+                console.log('failed to fetch data');
                 responseObj.error = 'failed to fetch data';
             } else {
                 responseObj.success = true;
-                responseObj.data = resultSet;
+                responseObj.data = datas.data.data.allIdeas.nodes;
+                responseObj.error = null;
+                console.log(responseObj.data);
+                return responseObj;
             }
-            return responseObj;
+
         } catch (e) {
+            console.log(e.message);
             responseObj.error = e.message || 'internal server error';
             return responseObj;
         }
@@ -47,24 +52,35 @@ export class ColumnConfigService {
     }
 
     async createOrUpdateMany(userId: string, data: [ColumnConfigInput]): Promise<any> {
+        const responseObj = {
+            success: false,
+            error: null,
+            data: []
+        }
 
-        axios.post( "http://localhost:5000/graphql",{
-            query: `mutation($userId: userId, $popclubingparameters: popclubingparameters){
+        try {
+            axios.post("http://localhost:5000/graphql", {
+                query: `mutation($userId: userId, $inputs: inputs){
                 createcolumndata(input: {
                   userid:$userId,
-                  popclubingparameters:$popclubingparameters
+                  inputs:$inputs
                 }) {
                   boolean
                 }
               }`,
-              variables:{userId:userId,popclubingparameters:data }
-        }).then(res=>{
-            console.log(res)
+                variables: { userId: userId, inputs: data }
+            }).then(res => {
+                console.log(res);
+                responseObj.success = true;
+                return responseObj;
 
-
-
+            })
+        } catch (e) {
+            responseObj.error = e.message || 'internal server error'
+            return responseObj;
+        }
     }
-        )}
 }
+
 
 
