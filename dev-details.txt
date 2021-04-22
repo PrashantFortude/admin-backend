@@ -1,0 +1,18 @@
+------------------------ Postgresql installation with Docker ----------------------------------
+
+1. Pull the latest postgres	
+ * docker pull postgres:latest
+		
+2. run the postgres containner:	
+ * docker run -d -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password --name db-my -p 5432:5432 --restart=always postgres	
+	
+3. Then installed the latest version of pgAdmin4 from pgadmin website
+		
+4. Run pgAdmin 4 create new server, and input as following Host: 127.0.0.1 Port: 5432 User name: user password: password123
+
+5. Open CLI
+ * docker exec -it <container_name> sh
+
+------------------------- postgraphile ----------------------------------------------------------------------
+	
+postgraphile -c postgres://postgres:password@localhost:5432/ideas -s public -a -j

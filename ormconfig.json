@@ -1,21 +1,13 @@
 {
-
     "type": "postgres",
-  
     "host": "localhost",
-  
     "port": 5432,
-  
     "username": "postgres",
-  
     "password": "prashant",
-  
-    "database": "cybertron admin",
-  
-    "entities": ["./src/**/*.entity.js","./dist/**/*.entity.js"],
-  
+    "database": "cybertronadmin",
     "synchronize": true,
-  
-    "logging": true
-  
-  }
+    "logging": true,
+    "entities": [
+        "./dist/**/*.entity.js"
+    ]
+}

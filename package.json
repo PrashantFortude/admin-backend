@@ -1,5 +1,5 @@
 {
-  "name": "ideagraphapi",
+  "name": "nestjs-intro",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -21,22 +21,21 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/common": "^7.6.15",
-    "@nestjs/core": "^7.6.15",
-    "@nestjs/graphql": "^7.10.3",
+    "@nestjs/common": "^7.6.13",
+    "@nestjs/core": "^7.6.13",
+    "@nestjs/graphql": "^7.9.11",
+    "@nestjs/microservices": "^7.6.13",
     "@nestjs/platform-express": "^7.6.13",
     "@nestjs/typeorm": "^7.1.5",
-    "apollo-server-express": "^2.21.2",
-    "class-validator": "^0.13.1",
+    "apollo-server-express": "^2.21.0",
+    "dotenv": "^8.2.0",
     "graphql": "^15.5.0",
     "graphql-tools": "^7.0.4",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6",
-    "type-graphql": "^1.1.1",
-    "typeorm": "^0.2.31",
-    "xlsx": "^0.16.9"
+    "typeorm": "^0.2.31"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.5.6",
@@ -44,6 +43,7 @@
     "@nestjs/testing": "^7.6.13",
     "@types/express": "^4.17.11",
     "@types/jest": "^26.0.20",
+    "@types/multer": "^1.4.5",
     "@types/node": "^14.14.31",
     "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^4.15.2",

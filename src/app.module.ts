@@ -1,22 +1,34 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core/constants';
+import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-// import {IdeaController } from './idea/idea.controller'
-// import {IdeaService } from './idea/idea.service'
-import { GraphQLModule } from '@nestjs/graphql';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { IdeaModule } from './idea/idea.module';
+import { LoggingInterceptor } from './shared/logging.interceptor';
+import { ColumnConfigModule } from './column-config/column.config.module';
 import { join } from 'path';
 
 @Module({
-  imports: [ TypeOrmModule.forRoot(),
-    GraphQLModule.forRoot({ typePaths: ['./**/*.graphql'],
-    definitions: {
-      path: join(process.cwd(), 'src/graphql.ts'),
-    },})
-   ,IdeaModule],
+  imports: [
+    GraphQLModule.forRoot({
+      typePaths: ['./**/**/*.graphql']
+    }),
+    TypeOrmModule.forRoot(),
+    ColumnConfigModule
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor
+    }
+  ],
 })
-export class AppModule {}
+export class AppModule {
 
+}
+
+// GraphQLModule.forRoot({
+//   autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+// }),
