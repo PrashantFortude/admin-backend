@@ -1,8 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 
-import { getConnection, Repository } from 'typeorm';
-import { ColumnConfigEntity } from './column.config.entity';
 
 import { ColumnConfigDTO, ColumnConfigInput } from './column.config.dto';
 const axios = require('axios');
@@ -14,13 +11,13 @@ export class ColumnConfigService {
         var responseObj = {
             success: false,
             error: null,
-            data: []
+            data : []
         }
         var datas;
 
-        try {
-            axios.post("http://localhost:5000/graphql", {
-                query: `{
+        try{
+       datas = await axios.post( "http://localhost:5000/graphql",{
+            query: `{
                 allIdeas{
                   nodes{
                     isEnable
@@ -29,57 +26,82 @@ export class ColumnConfigService {
                   }
                 }
               }`
-            }).then(res => {
-                console.log(res)
-            })
-            if (!datas) {
-                console.log('failed to fetch data');
-                responseObj.error = 'failed to fetch data';
-            } else {
-                responseObj.success = true;
-                responseObj.data = datas.data.data.allIdeas.nodes;
-                responseObj.error = null;
-                console.log(responseObj.data);
-                return responseObj;
-            }
-
-        } catch (e) {
-            console.log(e.message);
-            responseObj.error = e.message || 'internal server error';
+        });
+        if (!datas) {
+            console.log('failed to fetch data');
+            responseObj.error = 'failed to fetch data';
+        } else {
+            responseObj.success = true;
+            responseObj.data = datas.data.data.allIdeas.nodes;
+            responseObj.error = null;
+            console.log(responseObj.data);
             return responseObj;
         }
-
+       
+    } catch (e) {
+        console.log(e.message);
+        responseObj.error = e.message || 'internal server error';
+        return responseObj;
+    }
     }
 
     async createOrUpdateMany(userId: string, data: [ColumnConfigInput]): Promise<any> {
-        const responseObj = {
+
+        var responseObj = {
             success: false,
             error: null,
             data: []
         }
-
-        try {
-            axios.post("http://localhost:5000/graphql", {
-                query: `mutation($userId: userId, $inputs: inputs){
+        console.log(userId);
+        console.log(data);
+        var newdatas = false;
+        // try{
+       await axios.post("http://localhost:5000/graphql",{
+            query: `mutation ($userid: String,$inputs:  [ColumninputInput]){
                 createcolumndata(input: {
-                  userid:$userId,
+                  userid: $userid,
                   inputs:$inputs
                 }) {
+                  clientMutationId
                   boolean
-                }
+                } 
               }`,
-                variables: { userId: userId, inputs: data }
-            }).then(res => {
-                console.log(res);
-                responseObj.success = true;
-                return responseObj;
+           variables:{userid: userId, inputs:data}
+        }).then(res=>{ 
+            console.log(res.data)
+            newdatas = true
+            return newdatas ;
+        }).catch(e=>{
+            console.log(e.message);
+            return e.message;
+        })
 
-            })
-        } catch (e) {
-            responseObj.error = e.message || 'internal server error'
-            return responseObj;
+        // if (!newdatas) {
+        //     console.log('failed to fetch data');
+        //     responseObj.error = 'failed to fetch data';
+        // } else {
+        //     responseObj.success = true;
+        //     console.log(responseObj);
+        //     return responseObj;
+        // }
+       
+    // } catch (e) {
+    //     console.log(e.message);
+    //     responseObj.error = e.message || 'internal server error';
+    //     return responseObj;
+    // }
+    //     .then(res=>{
+    //         responseObj.success = true;
+    //         console.log(responseObj);
+    //         return responseObj;
+
+    // })
+    //     } catch(e){
+    //         responseObj.error = e.message || 'intenal server error'
+    //         console.log(responseObj)
+    //         return responseObj;
+    //     }
         }
-    }
 }
 
 
